@@ -14,10 +14,14 @@
 # Carpeta de archivos de configuración de Visual Studio Code
 .vscode/
 
-# Ignora todos los archivos en la carpeta de pruebas
-*
+# Ignora los archivos usados para pruebas
+/*
 
 # Pero incluye específicamente el Makefile
 !.gitignore
 !Makefile
 !README.md
+
+# Incluye los archivos de código fuente y cabecera
+!/src/
+!/include/
