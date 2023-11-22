@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 22:20:48 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/21 21:27:42 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:57:04 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ int	destroy_mutex(pthread_mutex_t *forks)
 		forks++;
 	}
 	free(forks);
-	printf("\nMutex destruido. Memoria de gdfForks liberada\n");
+	printf("\nMutex destruido. Memoria liberada\n");
 	return (0);
 }
 
 
-int	create_mutex(t_table *table, pthread_mutex_t *forks)
+int	create_mutex(t_table *table, pthread_mutex_t **forks)
 {
 	int	i;
 
-	forks = malloc(sizeof(pthread_mutex_t) * table->num_philos);
-	if (forks)
+	*forks = malloc(sizeof(pthread_mutex_t) * table->num_philos);
+	if (*forks)
 	{
 		i = 0;
 		while (i < table->num_philos)
 		{
-			if (pthread_mutex_init(&(forks[i]), NULL) != 0)
+			if (pthread_mutex_init(forks[i], NULL) != 0)
 			{
 				printf("Error: bad init mutex.");
 				return (1);

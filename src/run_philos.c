@@ -6,28 +6,30 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 23:02:35 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/10/07 20:38:29 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:46:48 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	contador = 0;
 
-void	*miFuncion(void *arg)
+void	*mi_funcion(void *arg)
 {
+	int	i;
 	int	tid;
 	int	hilo;
 
+	i = 0;
 	hilo = *((int *)arg);
 	tid = (int)pthread_self();
-	for (int i = 0; i < 10; i++) {
+	while (i < 10)
+	{
 		pthread_mutex_lock(&miMutex);
 		if (pthread_equal(tid, hilo))
 			printf("imprime A\n");
 		if (pthread_equal(tid, hilo))
 			printf("   imprime B\n");
-		contador++;
+		i++;
 		pthread_mutex_unlock(&miMutex);
 	}
 	return (NULL);
@@ -36,7 +38,7 @@ void	*miFuncion(void *arg)
 
 int	run_philos(t_table *table)
 {
-	pthread_t	*miMutex;
+	pthread_t	*mi_mutex;
 	int			i;
 
 	i = 0;

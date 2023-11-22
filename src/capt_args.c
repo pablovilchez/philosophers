@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:37:40 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/21 20:10:27 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:03:10 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ struct timeval	capt_timeval(long num, int *read)
 	return (tiempo);
 }
 
+long	capt_philos(char *str, int *read)
+{
+	long	philosophers;
+
+	philosophers = str_to_int(str, read);
+	if (philosophers > 250)
+	{
+		printf("Error: Exceeded maximum number of philosophers (250).\n");
+		*read = 0;
+	}
+	return (philosophers);
+}
+
 int	capt_args(int argc, char *argv[], t_table *table)
 {
 	int	read;
@@ -58,7 +71,7 @@ int	capt_args(int argc, char *argv[], t_table *table)
 	if (argc == 5 || argc == 6)
 	{
 		read = 1;
-		table->num_philos = str_to_int(argv[1], &read);
+		table->num_philos = capt_philos(argv[1], &read);
 		if (read == 1)
 			table->t_die = capt_timeval(str_to_int(argv[2], &read), &read);
 		if (read == 1)

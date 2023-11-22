@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:11:11 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/10/07 20:20:26 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/22 17:37:35 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ long			str_to_int(const char *str, int *read);
 void			print_table(t_table table);
 
 // mutex_func.c
-int				create_mutex(t_table *table, pthread_mutex_t *forks);
+int				create_mutex(t_table *table, pthread_mutex_t **forks);
 int				destroy_mutex(pthread_mutex_t *forks);
 
 // start_philos.c
