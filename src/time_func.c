@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   time_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/01 23:10:59 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/27 19:47:08 by pvilchez         ###   ########.fr       */
+/*   Created: 2023/11/27 23:33:34 by pvilchez          #+#    #+#             */
+/*   Updated: 2023/11/27 23:35:21 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char *argv[])
+long	time_diff(struct timeval start, struct timeval end)
 {
-	t_table			table;
+	long	diff;
 
-	if (capt_args(argc, argv, &table))
-	{
-		if (set_table(&table))
-			start_eating(&table);
-	}
-	clear_table(&table);
-	return (0);
+	diff = (end.tv_sec - start.tv_sec) * 1000;
+	diff += (end.tv_usec - start.tv_usec) / 1000;
+	return (diff);
 }

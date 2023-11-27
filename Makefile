@@ -6,7 +6,7 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 20:33:48 by pvilchez          #+#    #+#              #
-#    Updated: 2023/10/07 20:14:43 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/11/27 23:34:53 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ INC_PATH = include
 
 HEADERS	= -I ./include
 
-SRC_FILES = philo.c capt_args.c print_table.c mutex_func.c run_philos.c\
-			philo_actions.c
+SRC_FILES = philo.c capt_args.c print_table.c mutex_func.c set_table.c \
+			start_eating.c philo_actions.c clear_table.c time_func.c \
 
 SRC := $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:37:40 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/22 21:03:10 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/27 23:38:04 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 long	str_to_int(const char *str, int *read)
 {
-	long	result;
+	long	time;
 
-	result = 0;
+	time = 0;
 	while (*str && *read == 1)
 	{
 		if (*str >= '0' && *str <= '9')
-			result = result * 10 + (*str - '0');
+			time = time * 10 + (*str - '0');
 		else
 		{
 			printf("Error: Not numeric or negative arguments.\n");
@@ -28,26 +28,26 @@ long	str_to_int(const char *str, int *read)
 		}
 		str++;
 	}
-	return (result);
+	return (time);
 }
 
 struct timeval	capt_timeval(long num, int *read)
 {
-	struct timeval	tiempo;
+	struct timeval	time;
 
-	tiempo.tv_sec = 0;
-	tiempo.tv_usec = 0;
+	time.tv_sec = 0;
+	time.tv_usec = 0;
 	if (num > 0)
 	{
-		tiempo.tv_sec = num / 1000000;
-		tiempo.tv_usec = num % 1000000;
+		time.tv_sec = num / 1000000;
+		time.tv_usec = num % 1000000;
 	}
 	else
 	{
 		printf("Incorrect arguments values. Must be > 0.\n");
 		*read = 0;
 	}
-	return (tiempo);
+	return (time);
 }
 
 long	capt_philos(char *str, int *read)
