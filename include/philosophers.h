@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:11:11 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/27 23:37:21 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:14:51 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,31 @@
 
 // check_args.c
 int				capt_args(int argc, char *argv[], t_table *table);
-struct timeval	capt_timeval(long num, int *read);
 long			str_to_int(const char *str, int *read);
 
-// capt_args.c
-void			print_table(t_table table);
-
 // mutex_func.c
-int				create_mutex(t_table *table);
+int				create_forks_mutex(t_table *table);
 int				destroy_mutex(pthread_mutex_t *forks);
 
 // start_philos.c
 int				start_eating(t_table *table);
 
 // philo_actions.c
-void			phi_eat(void);
-void			phi_sleep(void);
-void			phi_think(void);
+void			philo_eat(t_args *args);
+void			philo_sleep(t_args *args);
+void			philo_think(t_args *args);
 
 // time_func.c
-long			time_diff(struct timeval start, struct timeval end);
+int				time_to_int(struct timeval time);
+int				now(int start);
+
+// set_table.c
+int				set_table(t_table *table);
+
+// clear_table.c
+void			clear_table(t_table *table);
+
+// print_table.c
+void			print_table(t_table *table);
 
 #endif

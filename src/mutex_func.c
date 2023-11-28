@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 22:20:48 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/27 23:31:23 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/11/28 20:16:19 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	destroy_mutex(pthread_mutex_t *forks)
 	return (0);
 }
 
-int	create_mutex(t_table *table)
+int	create_forks_mutex(t_table *table)
 {
 	int	i;
 
