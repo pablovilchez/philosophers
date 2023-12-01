@@ -6,30 +6,22 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 23:33:34 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/29 00:32:06 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:31:09 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /**
- * @brief Sets the start time of the simulation.
- * @param table Pointer to the table struct.
+ * @brief Returns the current time.
+ * @return Timeval struct.
  */
-void	set_start_time(t_table *table)
+struct timeval	*now(void)
 {
 	struct timeval	time;
-	int				i;
 
 	gettimeofday(&time, NULL);
-	table->start.tv_sec = time.tv_sec;
-	table->start.tv_usec = time.tv_usec;
-	i = 0;
-	while (i < table->num_philos)
-	{
-		table->philos[i].start = table->start;
-		i++;
-	}
+	return (&time);
 }
 
 /**

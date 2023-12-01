@@ -6,40 +6,57 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 22:20:48 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/28 20:16:19 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:17:23 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	destroy_mutex(pthread_mutex_t *forks)
+/**
+ * @brief Destroy mutex for each element of the list and free the list.
+ * @param lst Pointer to the list.
+ * @param num_elements Number of elements to destroy.
+ */
+void	destroy_mutex_lst(pthread_mutex_t **lst, int num_elements)
 {
-	while (forks)
+	int				i;
+	pthread_mutex_t	*elem;
+
+	elem = *lst;
+	i = 0;
+	while (i < num_elements)
 	{
-		pthread_mutex_destroy(forks);
-		forks++;
+		pthread_mutex_destroy(*lst);
+		i++;
 	}
-	free(forks);
-	return (0);
+	free(lst);
 }
 
-int	create_forks_mutex(t_table *table)
+/**
+ * @brief Create and initialize a mutex for each element of the list.
+ * @param lst Pointer to the list.
+ * @param num_elements Number of elements to initialize.
+ * @return 1 if success, 0 if error.
+ */
+int	create_mutex_lst(pthread_mutex_t **lst, int num_elements)
 {
-	int	i;
+	int				i;
+	pthread_mutex_t	*elem;
 
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->num_philos);
-	if (table->forks)
+	elem = malloc(sizeof(pthread_mutex_t) * num_elements);
+	if (elem)
 	{
 		i = 0;
-		while (i < table->num_philos)
+		while (i < num_elements)
 		{
-			if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+			if (pthread_mutex_init(&elem[i], NULL) != 0)
 			{
 				printf("Error: bad init mutex.");
 				return (1);
 			}
 			i++;
 		}
+		*lst = elem;
 		return (0);
 	}
 	printf("Error: error in forks malloc.");
