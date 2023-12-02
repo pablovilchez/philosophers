@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   capture_args.c                                     :+:      :+:    :+:   */
+/*   read_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:37:40 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/29 00:10:08 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:02:22 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	phi_atoi(const char *str, int *read)
+/**
+ * @brief Convert a string to a int.
+ * @param str String to convert.
+ * @param check Pointer to validate the continuation of reading arguments.
+ * @return The int conversion result.
+ */
+int	phi_atoi(const char *str, int *check)
 {
-	long	time;
+	int	time;
 
 	time = 0;
 	while (*str && *read == 1)
@@ -24,27 +30,40 @@ long	phi_atoi(const char *str, int *read)
 		else
 		{
 			printf("Error: Not numeric or negative arguments.\n");
-			*read = 0;
+			*check = 0;
 		}
 		str++;
 	}
 	return (time);
 }
 
-long	arg_philos(char *str, int *read)
+/**
+ * @brief Check and convert the value of the number of philosophers.
+ * @param str String to convert.
+ * @param check Pointer to validate the continuation of reading arguments.
+ * @return The long conversion result.
+ */
+int	arg_num_philos(char *str, int *check)
 {
-	long	num_philos;
+	int	num_philos;
 
 	num_philos = phi_atoi(str, read);
 	if (num_philos > 250)
 	{
 		printf("Error: max. number of philosophers (250).\n");
-		*read = 0;
+		*check = 0;
 	}
 	return (num_philos);
 }
 
-int	capt_args(int argc, char *argv[], t_table *table)
+/**
+ * @brief Read the arguments and assign them to the table struct.
+ * @param argc Number of arguments.
+ * @param argv Arguments.
+ * @param table Pointer to the table struct.
+ * @return 1 if success, 0 if error.
+ */
+int	read_args(int argc, char *argv[], t_table *table)
 {
 	int	check;
 
@@ -52,13 +71,13 @@ int	capt_args(int argc, char *argv[], t_table *table)
 	if (argc == 5 || argc == 6)
 	{
 		check = 1;
-		table->num_philos = arg_philos(argv[1], &check);
+		table->num_philos = arg_num_philos(argv[1], &check);
 		if (check == 1)
-			table->t_die = phi_atoi(argv[2], &check);
+			table->time_die = phi_atoi(argv[2], &check);
 		if (check == 1)
-			table->t_eat = phi_atoi(argv[3], &check);
+			table->time_eat = phi_atoi(argv[3], &check);
 		if (check == 1)
-			table->t_sleep = phi_atoi(argv[4], &check);
+			table->time_sleep = phi_atoi(argv[4], &check);
 		if (check == 1 && argc == 6)
 			table->num_eats = phi_atoi(argv[5], &check);
 		else

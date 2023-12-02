@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:41:06 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/01 23:24:45 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/02 10:53:25 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,37 @@ void	set_table_start_time(t_table *table)
 	int				i;
 
 	gettimeofday(&time, NULL);
-	table->start.tv_sec = time.tv_sec;
-	table->start.tv_usec = time.tv_usec;
+	table->init_time.tv_sec = time.tv_sec;
+	table->init_time.tv_usec = time.tv_usec;
 	i = 0;
 	while (i < table->num_philos)
 	{
-		table->philos[i].start = table->start;
+		table->philos[i].start = table->init_time;
 		i++;
 	}
 }
 
 /**
- * @brief Destroy the table and free the memory.
+ * @brief Assign values ​​to the entire table to start the meal.
  * @param table Pointer to the table struct.
+ * @return 1 if success, 0 if error.
  */
 int	set_table(t_table *table)
 {
 	if (create_mutex_lst(&table->forks, table->num_philos))
 		return (1);
-	if (pthread_mutex_init(&table->print, NULL))
+	if (pthread_mutex_init(&table->print_mutex, NULL))
 	{
 		printf("Error: bad init mutex.");
 		return (1);
 	}
-	if (pthread_mutex_init(&table->dead, NULL))
+	if (pthread_mutex_init(&table->dead_mutex, NULL))
 	{
 		printf("Error: bad init mutex.");
 		return (1);
 	}
 	if (create_philos(table))
 		return (1);
-	table->any_dead = 0;
 	return (0);
 }
 
@@ -79,12 +79,13 @@ t_table	*create_table(t_table *table)
 		table->num_philos = 0;
 		table->philos = NULL;
 		table->forks = NULL;
-		table->start.tv_sec = 0;
-		table->start.tv_usec = 0;
-		table->t_die = 0;
-		table->t_eat = 0;
-		table->t_sleep = 0;
+		table->init_time.tv_sec = 0;
+		table->init_time.tv_usec = 0;
+		table->time_die = 0;
+		table->time_eat = 0;
+		table->time_sleep = 0;
 		table->num_eats = 0;
+		table->eat_check = NULL;
 		table->any_dead = 0;
 		return (1);
 	}

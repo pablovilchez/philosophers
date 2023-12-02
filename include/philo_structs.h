@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 17:17:18 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/11/29 00:22:29 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/02 10:54:01 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ typedef struct s_table
 	int				num_philos;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	print;
-	pthread_mutex_t	dead;
-	struct timeval	start;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
+	pthread_mutex_t	print_mutex;
+	struct timeval	init_time;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
 	int				num_eats;
+	int				*eat_check;
+	pthread_mutex_t	dead_mutex;
 	int				any_dead;
 }				t_table;
 

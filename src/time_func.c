@@ -6,23 +6,11 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 23:33:34 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/01 23:31:09 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/02 10:43:37 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-/**
- * @brief Returns the current time.
- * @return Timeval struct.
- */
-struct timeval	*now(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (&time);
-}
 
 /**
  * @brief Converts a timeval struct to milliseconds.
