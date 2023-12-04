@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:11:11 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/02 11:05:31 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/04 00:25:51 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,39 @@
 # include <pthread.h>
 # include "philo_structs.h"
 
-// start_philos.c
-int				start_eating(t_table *table);
+// clean_table.c
+void			clean_table(t_table *table);
 
-// philo_actions.c
+// eating.c
+void			watch_table(t_table *table);
+void			*philo_thread(void *arg);
+void			thread_args(t_args **args, t_table *table, int i);
+int				eating(t_table *table);
+
+// mutex_func.c
+void			destroy_forks_mutex(t_table *table);
+int				create_forks_mutex(t_table *table);
+
+// philos_func.c
+void			use_print_mutex(char *str, t_args *args);
 void			philo_eat(t_args *args);
 void			philo_sleep(t_args *args);
 void			philo_think(t_args *args);
-
-
-
-// Archivos comprobados y comentados:
-
-
-// mutex_func.c
-void			destroy_mutex_lst(pthread_mutex_t **lst, int num_elements);
-int				create_mutex_lst(pthread_mutex_t **lst, int num_elements);
+int				create_philos(t_table *table);
 
 // read_args.c
-int				capt_args(int argc, char *argv[], t_table *table);
 int				phi_atoi(const char *str, int *check);
 int				arg_num_philos(char *str, int *check);
 int				read_args(int argc, char *argv[], t_table *table);
 
 // table_func.c
 void			clear_table(t_table *table);
-void			set_table_start_time(t_table *table);
 int				set_table(t_table *table);
-t_table			*create_table(t_table *table);
+t_table			*create_table(void);
 
 // time_func.c
+void			init_times(t_table *table);
+struct timeval	now(void);
 int				timeval_to_int(struct timeval time);
 int				lapsed_time(struct timeval start);
 

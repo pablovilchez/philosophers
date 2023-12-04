@@ -6,11 +6,41 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 23:33:34 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/02 10:43:37 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/03 19:33:56 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+/**
+ * @brief Assigns the initial timestamp, which is also the assigned time
+ * of each philosopher's last meal.
+ * @param table Pointer to the table.
+ */
+void	init_times(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	table->init_time = now();
+	while (i < table->num_philos)
+	{
+		table->philos[i].last_eat = table->init_time;
+		i++;
+	}
+}
+
+/**
+ * @brief Returns the current time.
+ * @return Timeval struct.
+ */
+struct timeval	now(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time);
+}
 
 /**
  * @brief Converts a timeval struct to milliseconds.
