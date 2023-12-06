@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:11:11 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/06 18:25:36 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 21:52:52 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 void		clean_table(t_table *table);
 
 // eating.c
-void		watch_table(t_table *table);
+int			end_by_dead(t_table *table, int i);
 void		*philo_thread(void *arg);
 int			eating(t_table *table);
 
@@ -40,7 +40,7 @@ void		philo_think(t_philo *philo);
 int			create_philos(t_table *table);
 
 // read_args.c
-int			phi_atoi(const char *str, int *check);
+long		phi_atoi(const char *str, int *check);
 int			arg_num_philos(char *str, int *check);
 int			read_args(int argc, char *argv[], t_table *table);
 
@@ -50,8 +50,8 @@ int			set_table(t_table *table);
 t_table		*create_table(void);
 
 // time_func.c
-int			now(void);
-int			timeval_to_int(struct timeval time);
-int			lapsed_time(int start);
+long		now(void);
+long		timeval_to_int(struct timeval time);
+long		lapsed_time(long start);
 
 #endif

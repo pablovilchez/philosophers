@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:37:40 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/04 00:50:30 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 21:53:17 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
  * @param check Pointer to validate the continuation of reading arguments.
  * @return The int conversion result.
  */
-int	phi_atoi(const char *str, int *check)
+long	phi_atoi(const char *str, int *check)
 {
-	int	num;
+	long	num;
 
 	num = 0;
 	while (*str && *check == 1)
@@ -48,7 +48,7 @@ int	arg_num_philos(char *str, int *check)
 {
 	int	num_philos;
 
-	num_philos = phi_atoi(str, check);
+	num_philos = (int)phi_atoi(str, check);
 	if (num_philos > 250)
 	{
 		printf("Error: max. number of philosophers (250).\n");

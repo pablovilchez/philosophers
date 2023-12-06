@@ -6,20 +6,20 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 23:33:34 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/06 18:11:17 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 21:55:02 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 /**
- * @brief Returns the current time.
- * @return Timeval struct.
+ * @brief Returns the current time in milliseconds.
+ * @return Current time in milliseconds.
  */
-int	now(void)
+long	now(void)
 {
 	struct timeval	time;
-	int				t_int;
+	long			t_int;
 
 	gettimeofday(&time, NULL);
 	t_int = timeval_to_int(time);
@@ -28,12 +28,12 @@ int	now(void)
 
 /**
  * @brief Converts a timeval struct to milliseconds.
- * @param time Timeval struct.
+ * @param time Timeval struct to convert.
  * @return Time in milliseconds.
  */
-int	timeval_to_int(struct timeval time)
+long	timeval_to_int(struct timeval time)
 {
-	int	t_int;
+	long	t_int;
 
 	t_int = time.tv_sec * 1000;
 	t_int += time.tv_usec / 1000;
@@ -41,11 +41,11 @@ int	timeval_to_int(struct timeval time)
 }
 
 /**
- * @brief Calculates the time elapsed since a given moment.
- * @param start Timeval struct of the given moment.
- * @return Elapsed time in milliseconds.
+ * @brief Returns the time elapsed since the start of the meal.
+ * @param start Start time of the meal.
+ * @return Time elapsed since the start of the meal.
  */
-int	lapsed_time(int start)
+long	lapsed_time(long start)
 {
 	struct timeval	time;
 
