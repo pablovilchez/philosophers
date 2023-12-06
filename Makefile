@@ -6,13 +6,13 @@
 #    By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/02 20:33:48 by pvilchez          #+#    #+#              #
-#    Updated: 2023/12/03 23:48:24 by pvilchez         ###   ########.fr        #
+#    Updated: 2023/12/06 19:28:17 by pvilchez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-CC = gcc -g
+CC = gcc #-fsanitize=thread -g3
 CFLAGS = -Wall -Wextra -Werror
 REMOVE = rm -rf
 

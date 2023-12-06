@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 22:42:26 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/04 00:52:37 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:27:39 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,21 @@ void	clear_forks(t_table *table)
  */
 void	clean_table(t_table *table)
 {
+	int	i;
+
+	i = 0;
 	if (table)
 	{
 		if (table->philos != NULL)
+		{
+			while (i < table->num_philos)
+			{
+				pthread_mutex_destroy(&(table->philos[i].last_eat_mutex));
+				pthread_mutex_destroy(&(table->philos[i].num_eats_mutex));
+				i++;
+			}
 			free(table->philos);
+		}
 		if (table->forks != NULL)
 			clear_forks(table);
 		pthread_mutex_destroy(&table->print_mutex);

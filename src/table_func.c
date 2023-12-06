@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 23:41:06 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/04 00:27:42 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:22:42 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ t_table	*create_table(void)
 		table->num_philos = 0;
 		table->philos = NULL;
 		table->forks = NULL;
-		table->init_time.tv_sec = 0;
-		table->init_time.tv_usec = 0;
+		table->init_time = 0;
 		table->time_die = 0;
 		table->time_eat = 0;
 		table->time_sleep = 0;

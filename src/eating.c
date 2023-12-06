@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 23:02:35 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/03 23:47:21 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 19:21:21 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,13 @@ int	check_meals(t_table *table)
 		return (0);
 	while (i < table->num_philos)
 	{
+		pthread_mutex_lock(&table->philos[i].num_eats_mutex);
 		if (table->philos[i].num_eats < table->num_eats)
+		{
+			pthread_mutex_unlock(&table->philos[i].num_eats_mutex);
 			return (0);
+		}
+		pthread_mutex_unlock(&table->philos[i].num_eats_mutex);
 		i++;
 	}
 	if (i == table->num_philos)
@@ -60,17 +65,20 @@ void	watch_table(t_table *table)
 		i = 0;
 		while (i < table->num_philos)
 		{
+			pthread_mutex_lock(&table->philos[i].last_eat_mutex);
 			if (lapsed_time(table->philos[i].last_eat) > table->time_die)
 			{
 				pthread_mutex_lock(&table->end_mutex);
 				table->end = 1;
 				pthread_mutex_unlock(&table->end_mutex);
+				pthread_mutex_unlock(&table->philos[i].last_eat_mutex);
 				pthread_mutex_lock(&table->print_mutex);
 				printf("%i ", lapsed_time(table->init_time));
 				printf("%i died\n", table->philos[i].pos + 1);
 				pthread_mutex_unlock(&table->print_mutex);
 				return ;
 			}
+			pthread_mutex_unlock(&table->philos[i].last_eat_mutex);
 			i++;
 		}
 		if (check_meals(table))
@@ -84,39 +92,28 @@ void	watch_table(t_table *table)
  */
 void	*philo_thread(void *arg)
 {
-	t_args	*args;
+	t_philo	*philo;
 
-	args = (t_args *)arg;
-	if (args->philo->pos % 2 == 0)
+	philo = (t_philo *)arg;
+	if (philo->pos % 2 == 0)
 	{
-		usleep(args->table->time_eat * 100);
-		philo_think(args);
+		usleep(philo->table->time_eat * 100);
+		philo_think(philo);
 	}
 	while (1)
 	{
-		if (args->table->end)
+		pthread_mutex_lock(&philo->table->end_mutex);
+		if (philo->table->end)
+		{
+			pthread_mutex_unlock(&philo->table->end_mutex);
 			break ;
-		philo_eat(args);
-		philo_sleep(args);
-		philo_think(args);
+		}
+		pthread_mutex_unlock(&philo->table->end_mutex);
+		philo_eat(philo);
+		philo_sleep(philo);
+		philo_think(philo);
 	}
 	return (NULL);
-}
-
-/**
- * @brief Create the arguments struct for each philosopher.
- * @param args Pointer to the arguments struct.
- * @param table Pointer to the table struct.
- * @param i Position of the philosopher.
- */
-void	thread_args(t_args **args, t_table *table, int i)
-{
-	t_args	*new;
-
-	new = malloc(sizeof(t_args));
-	new->table = table;
-	new->philo = &(table->philos[i]);
-	*args = new;
 }
 
 /**
@@ -129,16 +126,16 @@ int	eating(t_table *table)
 {
 	int			i;
 	pthread_t	*threads;
-	t_args		*args;
 
 	threads = malloc(sizeof(pthread_t) * table->num_philos);
 	if (threads)
 	{
 		i = 0;
+		table->init_time = now();
 		while (i < table->num_philos)
 		{
-			thread_args(&args, table, i);
-			pthread_create(&threads[i], NULL, philo_thread, args);
+			table->philos[i].last_eat = now();
+			pthread_create(&threads[i], NULL, philo_thread, &table->philos[i]);
 			i++;
 		}
 		watch_table(table);

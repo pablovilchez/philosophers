@@ -6,7 +6,7 @@
 /*   By: pvilchez <pvilchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 23:10:59 by pvilchez          #+#    #+#             */
-/*   Updated: 2023/12/04 00:39:47 by pvilchez         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:59:15 by pvilchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	main(int argc, char *argv[])
 	if (cont)
 		cont = set_table(table);
 	if (cont)
-	{
-		init_times(table);
 		eating(table);
-	}
 	clean_table(table);
 	return (0);
 }
